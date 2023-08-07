@@ -26,9 +26,9 @@ edgeThreshold1 = 100
 edgeThreshold2 = 200
 
 for image in displayImages:
-    image = filter.ResizeImage(image, 30)
+    image = filter.ResizeImage(image, 50)
     width, height = image.shape[:2]
-    image = image[300:height, :width]
+    image = image[10:height, 10:width]
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     filtered = filter.PreFilter(image)
     edges = cv2.Canny(filtered, edgeThreshold1, edgeThreshold2)
@@ -36,13 +36,13 @@ for image in displayImages:
     lines = detector.DetectLines(morphed, maxLineGap, lineThreshold)
     lines = detector.SlopeFilter(lines, slopeTolerance)
     DrawLines(image, lines)
-
+ 
     while True:
-        #cv2.imshow("Pre Filter", filtered)
+        cv2.imshow("Pre Filter", filtered)
         cv2.imshow("Morphed", morphed)
         cv2.imshow("Edges", edges)
         cv2.imshow("Lines", image)
-        #cv2.imshow("HSV", hsv)
+        cv2.imshow("HSV", hsv)
         key = cv2.waitKey(1)
         if key == 32: break
         elif key == 27: break
